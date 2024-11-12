@@ -9,13 +9,8 @@ const listingSchema = new Schema({
   },
   description: String,
   image: {
-    type: String,
-    default:
-      "https://unsplash.com/photos/brown-and-green-trees-and-field-LHR-a19z1SA",
-    set: (v) =>
-      v === ""
-        ? "https://unsplash.com/photos/brown-and-green-trees-and-field-LHR-a19z1SA"
-        : v,
+    url: String,
+    filename: String,
   },
   price: Number,
   location: String,
@@ -32,11 +27,11 @@ const listingSchema = new Schema({
   },
 });
 
-listingSchema.post("findOneAndUpdate", async (listing) => {
-  if (listing) {
-    await Review.deleteMany({ _id: { $in: listing.reviews } });
-  }
-});
+// listingSchema.post("findOneAndUpdate", async (listing) => {
+//   if (listing) {
+//     await Review.deleteMany({ _id: { $in: listing.reviews } });
+//   }
+// });
 
 const Listing = mongoose.model("Listing", listingSchema);
 
